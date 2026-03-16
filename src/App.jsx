@@ -3,6 +3,19 @@ import './App.css'
 
 function App() {
 
+  const [habitList, setHabitList] = useState([
+    {id: 1, name: "Drink Water", completed: false},
+    {id: 2, name: "Drink Mocha", completed: true}
+  ]);
+
+
+  const toggleHabit = id => {
+    setHabitList(prevHabitList =>
+      prevHabitList.map(habit =>
+        habit.id === id ? { ...habit, completed: !habit.completed } : habit      
+      )
+    )
+  }
 
   return (
     <>
@@ -15,8 +28,21 @@ function App() {
 
         <div>
           <ul>
-            habit name
-            progress bar
+
+            {habitList.map((habit) => (
+              <li
+                key={habit.id}
+                style={{
+                  textDecoration: habit.completed ? "line-through" : "none",
+                  color: habit.completed ? "#999" : "#000"
+                }}
+              >
+              <span>
+                {habit.completed ? "✅" : "⭕"}
+              </span>  
+                {habit.name}
+              </li>
+            ))}
           </ul>
         </div>
       </main>
