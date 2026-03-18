@@ -9,6 +9,7 @@ function App() {
   ]);
 
   const [newItemName, setNewItemName] = useState("");
+  const [error, setError] = useState("");
 
   const addHabit = (e) => {
     e.preventDefault(); // <-- prevent form from automatically reloading
@@ -26,6 +27,24 @@ function App() {
     console.log(habitList);
   }
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+
+    setNewItemName(value);
+
+    const hasSpecialCharacters = /[^a-zA-Z0-9 ]/.test(value);
+    const hasUppercase = /[A-Z]/.test(value);
+
+    if (value.length > 0 && hasSpecialCharacters) {
+      setError("No special characters!");
+    } else if (value.length > 0 && !hasUppercase) {
+      setError("at least one uppercase letter!");
+    } else {
+      setError("");
+    }
+  }
+  
+
   const toggleHabit = id => {
     setHabitList(prevHabitList =>
       prevHabitList.map(habit =>
@@ -42,10 +61,15 @@ function App() {
           <input 
             type="text" 
             value={newItemName} 
-            onChange={(e) => setNewItemName(e.target.value)} 
+            onChange={handleInputChange} 
             placeholder="enter new habit"/>
 
           <button type="submit">Submit</button>
+          {error && (
+            <p style={{color:'red', fontSize: '12px'}}>
+              ⚠️ {error}
+            </p>
+          )}
         </form>
 
         <div>
