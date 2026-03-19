@@ -80,7 +80,7 @@ function App() {
   // find number of completed habits
   const completedHabits = habitList.filter(habit => habit.completed).length;
   // if total habits is more than 1, then find % of completed habits
-  const progressPercentage = totalHabits > 0 ? ((completedHabits/totalHabits) * 100).toFixed(2) : 0;
+  const progressPercentage = totalHabits > 0 ? ((completedHabits/totalHabits) * 100).toFixed(0) : 0;
 
   return (
     <>
