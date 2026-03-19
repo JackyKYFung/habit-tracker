@@ -75,6 +75,13 @@ function App() {
     setHabitList(updatedList);
   }
 
+  // grab total amount of habits
+  const totalHabits = habitList.length;
+  // find number of completed habits
+  const completedHabits = habitList.filter(habit => habit.completed).length;
+  // if total habits is more than 1, then find % of completed habits
+  const progressPercentage = totalHabits > 0 ? ((completedHabits/totalHabits) * 100).toFixed(2) : 0;
+
   return (
     <>
       <main>
@@ -97,7 +104,39 @@ function App() {
           )}
         </form>
 
-        <div>
+        <div style={{marginTop: '15px'}}>
+          <div>
+            Habit List Progression
+          </div>
+
+          <div
+            style={{
+              width: '100%',
+              background: '#898989',
+              height: '100%',
+              borderRadius: '5px'
+            }}
+          >
+            <div 
+            className="progress-bar"
+            style={{
+              width: `${progressPercentage}%`,
+              height: '100%',
+              background: 'green',
+              transition: 'width 0.7s ease-in-out',
+              borderRadius: '5px'
+            }}
+            >
+              <p
+              style={{
+                color: 'white',
+                textAlign: 'center'
+              }}>
+              {progressPercentage}%
+              </p>
+            </div>
+          </div>
+
           <ul>
 
             {habitList.map((habit) => (
