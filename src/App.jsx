@@ -55,6 +55,12 @@ function App() {
     )
   }
 
+  const deleteHabit = (idToDelete) => {
+    const updatedList = habitList.filter(habit => habit.id !== idToDelete);
+
+    setHabitList(updatedList);
+  }
+
   return (
     <>
       <main>
@@ -94,7 +100,12 @@ function App() {
                 {habit.completed ? "✅" : "⭕"}
               </span>  
                 &nbsp; {habit.name} &nbsp;
-              <button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteHabit(habit.id);
+                }}
+              >
                 Delete  
               </button> 
               
