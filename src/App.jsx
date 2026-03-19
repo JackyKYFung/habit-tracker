@@ -56,8 +56,22 @@ function App() {
   }
 
   const deleteHabit = (idToDelete) => {
+    
+    // find specific object in habitList array
+    const habitToDelete = habitList.find(h => h.id === idToDelete);
+
+    // check completion status of selected habit
+    if (habitToDelete && habitToDelete.completed === false) {
+      // popup window to confirm the deletion
+      const confirmDelete = window.confirm("Habit is not completed yet, Delete?");
+      // cancel the deletion if cancel button is clicked
+      if (!confirmDelete) return;
+    }
+    
+    // delete the selected habit
     const updatedList = habitList.filter(habit => habit.id !== idToDelete);
 
+    // update new habit list to HabitList array
     setHabitList(updatedList);
   }
 
@@ -104,8 +118,7 @@ function App() {
                 onClick={(e) => {
                   e.stopPropagation();
                   deleteHabit(habit.id);
-                }}
-              >
+                }} >
                 Delete  
               </button> 
               
