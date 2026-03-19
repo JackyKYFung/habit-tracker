@@ -39,6 +39,8 @@ function App() {
       setError("No special characters!");
     } else if (value.length > 0 && !hasUppercase) {
       setError("at least one uppercase letter!");
+    } else if (value.length <= 3) {
+      setError("Be more descriptive!");
     } else {
       setError("");
     }
@@ -64,7 +66,10 @@ function App() {
             onChange={handleInputChange} 
             placeholder="enter new habit"/>
 
-          <button type="submit">Submit</button>
+          <button 
+            type="submit"
+            disabled={error !== "" || newItemName.trim() === ""}
+            >Submit</button>
           {error && (
             <p style={{color:'red', fontSize: '12px'}}>
               ⚠️ {error}
@@ -88,7 +93,11 @@ function App() {
               <span>
                 {habit.completed ? "✅" : "⭕"}
               </span>  
-                {habit.name}
+                &nbsp; {habit.name} &nbsp;
+              <button>
+                Delete  
+              </button> 
+              
               </li>
             ))}
           </ul>
